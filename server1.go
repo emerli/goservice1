@@ -19,15 +19,24 @@ func main() {
 	var role = os.Getenv("SERVICE_ROLE")
 	switch role {
 	case "MASTER":
-		log.Print("This is master")
+		//send new data to all replicas.
 	case "SLAVE":
-		log.Print("This is slave")
+		//receive data from master
 	default:
 		log.Fatal("SERVICE_ROLE env is mandatory!")
 	}
 
+	var rtype = os.Getenv("REPLICA_TYPE")
+	switch rtype {
+	case "SYNC":
+		//send new data to all replicas during master data add and wait that alla replicas are syncronized.
+	case "ASYNC":
+		//send new data to all replicas during master data add in asyncronous mode.
+	default:
+		log.Fatal("REPLICA_TYPE env is mandatory!")
+	}
+
 	var addr = os.Getenv("SERVICE_ADDRESS")
-	log.Print(addr)
 	if addr == "" {
 		log.Fatal("SERVICE_ADDRESS env is mandatory!")
 	}
